@@ -1,0 +1,69 @@
+1.- 	paso1:Iniciar programa.
+	paso2:Imprimir en pantalla que se ingresen los valores de las clasificaciones.
+	paso3:Establecer cada clasificacion como variable diferente.
+	paso4:Reemplazar el valor de las clasificaciones por los ingresados por el usuario.
+	paso5:Introducir como variables el numero de matricula, la suma de las clasificaciones y la division de la suma de clasificaciones por 3.
+	paso6:Establecer el valor de la matricula por la matricula de Pedro Salinas y establecer la operacion de la obtencion de el promedio de calificaciones por medio de los datos de las calificaciones 1,2 y 3.
+	paso7:Imprimir en pantalla el numero de matricula y el promedio de calificaciones semestrales.
+	paso8:Finalizar programa.
+
+2.-	paso1:Iniciar programa.
+	paso2:Introducir la variable del numero entero positivo.
+	paso3:Imprimir en pantallaza que se ingrese un valor para la variable numero.
+	paso4:Reemplazar la variable del numero por el valor ingresado por el usuario.
+	paso5:Establecer las variables de el cuadrado y el cubo, y la formula para poder calcular estas.
+	paso6:Imprimir en pantallza el resultado de el cuadrado y el cubo de el numero entero positivo.
+	paso7:FInalizar programa.
+	
+3.-	paso1:Iniciar programa
+	paso2:Imprimir en pantalla que se introduzcan los catetos del triangulo rectangulo.
+	paso3:Introducir las variables de los catetos y establecerlas como variables iguales a los datos introducidos por el usuario.
+	paso4:Introducir la hipotenusa como variable y establecer su formula.
+	paso5:Imprimir en pantalla la hipotenusa del triangulo rectangulo.
+	paso6:Finalizar programa.
+
+4.-	paso1:Iniciar programa.
+	paso2:Imprimir en pantalla que se introduzca la base y la altura del rectangulo y establecer estos como variables.
+	paso3:Introducir el perimetro y el area como variables y establecer su formula apartir de la base y la altura.
+	paso4:Imprimir en pantalla el perimetro y el area del rectangulo.
+	paso5:Finalizar programa.
+
+5.-	paso1:Iniciar programa.
+	paso2:Introducir como datos el nombre, el largo en pies y el peso en libras de un dinosaurio.
+	paso3:Imprimir en pantalla que se introduzcan estos datos por le usuario y asi establecer esos valores con estos datos.
+	paso4:Introducir el peso y la altura en kilogramos y metros como variables y establecer la formula para calcularlos.
+	paso5:Imprimir en pantalla el nombre del dinosaurio, el peso de este en kilogramos y la altura en metros.
+	paso6:Finalizar programa.
+
+6.-	paso1:Iniciar programa.
+	paso2:Introducir la variable de gasolina surtida en galones e imprimir en pantalla que se introduzca el valor de este para establecer la variable.
+	paso3:Introducir la variable de litros y establecer la formula de esta.
+	paso4:Introducir la variable de el precio y establecer la formula de esta.
+	paso5:Imprimir en pantalla el precio total de la gasolina surtida en CLP.
+	paso6:Finalizar programa.
+
+7.-	paso1:Iniciar programa.
+	paso2:Introducir la variable de dias e imprimir en pantallaza que se introduzca valor para la variable.
+	paso3:Introducir la varialbe de segundos y establecer la formula de estos.
+	paso4:Imprimir en pantalla cuandos segundos corresponde a la cantidad de dias que se introdujo.
+	paso5:Finalizar programa.
+
+8.-	paso1:Iniciar programa.
+	paso2:Introducir la variable x e imprimir en pantallza que se introduzca un valor para esta variable.
+	paso3:Introducir el polinomio como variable y la resolucion de esta con x con el valor de la variable anterior.
+	paso4:Imprimir en pantalla el valor del polinomio segun el valor de x introducido por el usuario.
+	paso5:Finalizar programa.
+
+9.-	paso1:Iniciar programa.
+	paso2:Imprimir en pantalla que la comision semanal es del 7%.
+	paso3:Introducir la variable s como el sueldo mensual e imprimri en pantalla que se establesca un valor a esta variable.
+	paso4:Introducir las variables de la comision semanal, la comision total del mes segun el sueldo y la ganancia total del mes, y establecer la formula de las ultimas dos para poder obtener su valor.
+	paso5:Imprimir en pantalla la ganancia total del mes y el total de las comisiones semanales durante el mes.
+	paso6:Finalizar programa.
+
+10.-	paso1:Iniciar programa.
+	paso2:Introducir la variable kilometros y valor de el kilometro, estableciendo el valor del kilometro en 2000 CLP e imprimiendolo en pantalla.
+	paso3:Imprimir en pantalla que se introduzca la cantidad de kilometros que recorrera y asi estableciendole un valor a la variable kilometros.
+	paso4:Introducir la variable valor del boleto y estableciendo su formula para poder llegar al valor.
+	paso5:Imprimir en pantalla el valor de el boleto.
+	paso6:Finalizar programa.
