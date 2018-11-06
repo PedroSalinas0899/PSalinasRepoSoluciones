@@ -4,8 +4,8 @@ import copy
 import os
 import json
 BLOQUE = '█'
-x = 15
-y = 35
+x = 20
+y = 40
 
 def cargar_json_ensenanza():
 
