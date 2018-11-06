@@ -3,14 +3,15 @@ import random
 import copy
 import os
 import json
+
 BLOQUE = '█'
 x = 20
 y = 40
 
-def cargar_json_ensenanza():
 
+def cargar_json_ensenanza():
     try:
-        with open('ensenanza.json',"r") as file:
+        with open('ensenanza.json', 'r') as file:
             data2 = json.load(file)
 
     except IOError:
@@ -18,10 +19,10 @@ def cargar_json_ensenanza():
 
     return data2
 
-def cargar_json_matriz():
 
+def cargar_json_matriz():
     try:
-        with open('matriz.json',"r") as file:
+        with open('matriz.json', "r") as file:
             data1 = json.load(file)
 
     except IOError:
@@ -29,76 +30,77 @@ def cargar_json_matriz():
 
     return data1
 
+
 def revision_matriz_repetida(data1, matriz):
     indice = 0
 
-    #Si, la lista data1 no tiene elementos se agrega el primer laberinto y se nombra como 0.
-    if (len(data1) == 0):
+    # Si, la lista data1 no tiene elementos se agrega el primer laberinto y se nombra como 0.
+    if len(data1) == 0:
         data1.append(matriz)
-        with open('matriz.json',"w") as file:
-            json.dump(data1,file, indent = 4)
-    
-    #Cuando data1 ya tiene varios labertintos procede a compararlos, si no encuentra una copia procede a identificar al laberinto.
-    elif (len(data1) != 0):
+        with open('matriz.json', "w") as file:
+            json.dump(data1, file, indent=4)
 
+    # Cuando data1 ya tiene varios labertintos procede a compararlos, si no encuentra una copia procede a identificar al laberinto.
+    elif len(data1) != 0:
         for i in range(len(data1)):
-            if(matriz == data1[i]):
+            if matriz == data1[i]:
                 indice = i
                 break
-                
-            elif (matriz != data1[i]):
-                if(i == (len(data1)- 1)):
+
+            elif matriz != data1[i]:
+                if i == (len(data1) - 1):
                     data1.append(matriz)
                     indice = len(data1) - 1
-                    
-        with open('matriz.json',"w") as file:
-            json.dump(data1,file, indent = 4)
-    
+
+        with open('matriz.json', "w") as file:
+            json.dump(data1, file, indent=4)
+
     return indice
 
-def subir_coordenadas(data2, coordenadas, indice):
 
-    #Si existe al menos 1 ensenanza aux es true, por lo contrario false
-    if ('laberinto'+str(indice) in data2):
+def subir_coordenadas(data2, coordenadas, indice):
+    # Si existe al menos 1 ensenanza aux es true, por lo contrario false
+    if 'laberinto' + str(indice) in data2:
         aux = True
     else:
         aux = False
 
-    if(aux == False):
-        data2['laberinto'+str(indice)] = []
-        ensenanza = len(data2['laberinto'+str(indice)])
-        data2['laberinto'+str(indice)].append({'ensenanza'+str(ensenanza): coordenadas})
-        with open('ensenanza.json',"w") as file:
-            json.dump(data2,file, indent = 4)
+    if aux == False:
+        data2['laberinto' + str(indice)] = []
+        ensenanza = len(data2['laberinto' + str(indice)])
+        data2['laberinto' + str(indice)].append({'ensenanza' + str(ensenanza): coordenadas})
 
-    elif(aux == True):
-        ensenanza = len(data2['laberinto'+str(indice)])
-        data2['laberinto'+str(indice)].append({'ensenanza'+str(ensenanza): coordenadas})
-        with open('ensenanza.json',"w") as file:
-            json.dump(data2,file, indent = 4)
+        with open('ensenanza.json', "w") as file:
+            json.dump(data2, file, indent=4)
 
-def revision(matriz,k,a):
-    #revision para saber donde detenerse en la creacion de caminos
+    elif aux == True:
+        ensenanza = len(data2['laberinto' + str(indice)])
+        data2['laberinto' + str(indice)].append({'ensenanza' + str(ensenanza): coordenadas})
+        with open('ensenanza.json', "w") as file:
+            json.dump(data2, file, indent=4)
+
+
+def revision(matriz, k, a):
+    # revision para saber donde detenerse en la creacion de caminos
     contador = 0
     if k == 0:
-        k = k+1
-    if k == x-1:
-        k = k-1
+        k = k + 1
+    if k == x - 1:
+        k = k - 1
     if a == 0:
-        a = a+1
-    if a == y-2:
-        a = a-1
+        a = a + 1
+    if a == y - 2:
+        a = a - 1
 
-    for i in range(-1,2):
-        for j in range(-1,2):
-            if matriz[k+i][a+j] == ' ':
-                contador = contador+1
+    for i in range(-1, 2):
+        for j in range(-1, 2):
+            if matriz[k + i][a + j] == ' ':
+                contador = contador + 1
 
-    c = matriz[k-1][a-1]
-    v = matriz[k-1][a+1]
-    b = matriz[k+1][a-1]
-    n = matriz[k+1][a+1]
-
+    c = matriz[k - 1][a - 1]
+    v = matriz[k - 1][a + 1]
+    b = matriz[k + 1][a - 1]
+    n = matriz[k + 1][a + 1]
 
     if c == ' ' and v == ' ':
         contador = 10
@@ -121,294 +123,296 @@ def revision(matriz,k,a):
 
     return contador
 
+
 def laberinto(matriz, k):
-    #despejar camino que si o si empiece desde el inicio hasta donde llegue
+    # despejar camino que si o si empiece desde el inicio hasta donde llegue
     a = 1
-    b = y-3
+    b = y - 3
     matriz[k][a] = ' '
 
     pausa = 1000
     while pausa >= 1:
         comodin_1 = k
         comodin_2 = a
-        movimiento = random.randint(1,5)
-        #derecha
+        movimiento = random.randint(1, 5)
+        # derecha
         if movimiento == 1:
-            a = a+1
-            revisar = revision(matriz,k,a)
-            if a != b-1 and revisar <= 2:
+            a = a + 1
+            revisar = revision(matriz, k, a)
+            if a != b - 1 and revisar <= 2:
                 matriz[k][a] = ' '
             else:
-                a = a-1
-        #arriba
+                a = a - 1
+        # arriba
         elif movimiento == 2:
-            k = k-1
-            revisar = revision(matriz,k,a)
+            k = k - 1
+            revisar = revision(matriz, k, a)
             if k != 0 and revisar <= 2:
                 matriz[k][a] = ' '
             else:
-                k = k+1
-        #abajo
+                k = k + 1
+        # abajo
         elif movimiento == 3:
-            k = k+1
-            revisar = revision(matriz,k,a)
-            if k != x-1 and revisar <= 2:
-                matriz[k][a]=' '
+            k = k + 1
+            revisar = revision(matriz, k, a)
+            if k != x - 1 and revisar <= 2:
+                matriz[k][a] = ' '
             else:
-                k = k-1
-        #izquierda
+                k = k - 1
+        # izquierda
         elif movimiento == 4:
-            a = a-1
-            revisar = revision(matriz,k,a)
+            a = a - 1
+            revisar = revision(matriz, k, a)
             if a != 0 and revisar <= 2:
                 matriz[k][a] = ' '
             else:
-                a = a+1
+                a = a + 1
         if comodin_1 == k and comodin_2 == a:
-            pausa = pausa-1
+            pausa = pausa - 1
 
-#despejar si o si un camino que vaya desde el final hasta donde llegue
+
+# despejar si o si un camino que vaya desde el final hasta donde llegue
 def laberinto_parte_2(matriz, l):
-    
-    matriz[l][y-2] = ' '
+    matriz[l][y - 2] = ' '
     k = l
-    a = y-7
-    b = y-3
+    a = y - 7
+    b = y - 3
     pausa = 1000
     while pausa >= 1:
         comodin_1 = k
         comodin_2 = a
-        movimiento = random.randint(1,5)
-        #derecha
+        movimiento = random.randint(1, 5)
+        # derecha
         if movimiento == 1:
-            a = a+1
-            revisar = revision(matriz,k,a)
-            if a != b-1 and revisar <= 2:
+            a = a + 1
+            revisar = revision(matriz, k, a)
+            if a != b - 1 and revisar <= 2:
                 matriz[k][a] = ' '
             else:
-                a = a-1
-        #arriba
+                a = a - 1
+        # arriba
         elif movimiento == 2:
-            k = k-1
-            revisar = revision(matriz,k,a)
+            k = k - 1
+            revisar = revision(matriz, k, a)
             if k != 0 and revisar <= 2:
                 matriz[k][a] = ' '
             else:
-                k = k+1
-        #abajo
+                k = k + 1
+        # abajo
         elif movimiento == 3:
-            k = k+1
-            revisar = revision(matriz,k,a)
-            if k != x-1 and revisar <= 2:
-                matriz[k][a]=' '
+            k = k + 1
+            revisar = revision(matriz, k, a)
+            if k != x - 1 and revisar <= 2:
+                matriz[k][a] = ' '
             else:
-                k = k-1
-        #izquierda
+                k = k - 1
+        # izquierda
         elif movimiento == 4:
-            a = a-1
-            revisar = revision(matriz,k,a)
+            a = a - 1
+            revisar = revision(matriz, k, a)
             if a != 0 and revisar <= 2:
                 matriz[k][a] = ' '
             else:
-                a = a+1
+                a = a + 1
         if comodin_1 == k and comodin_2 == a:
-            pausa = pausa-1
+            pausa = pausa - 1
+
     completar_laberinto(matriz)
 
-#realizar un despeje total de el laberinto, creando muchos caminos hasta donde lleguen
+
+# realizar un despeje total de el laberinto, creando muchos caminos hasta donde lleguen
 def completar_laberinto(matriz):
-    
-    b = y-3
+    b = y - 3
     detenerse = 1000
     while detenerse >= 1:
-        random_x = random.randint(1,x-1)
-        random_y = random.randint(1,y-5)
+        random_x = random.randint(1, x - 1)
+        random_y = random.randint(1, y - 5)
+
         if matriz[random_x][random_y] == ' ':
             pausa = 100
             while pausa >= 1:
                 comodin_1 = random_x
                 comodin_2 = random_y
-                movimiento = random.randint(1,5)
+                movimiento = random.randint(1, 5)
                 if movimiento == 1:
-                    random_y = random_y+1
-                    revisar = revision(matriz,random_x,random_y)
-                    if random_y != b-1 and revisar <= 2:
+                    random_y = random_y + 1
+                    revisar = revision(matriz, random_x, random_y)
+                    if random_y != b - 1 and revisar <= 2:
                         matriz[random_x][random_y] = ' '
                     else:
-                        random_y = random_y-1
+                        random_y = random_y - 1
 
                 elif movimiento == 2:
-                    random_x = random_x-1
-                    revisar = revision(matriz,random_x,random_y)
+                    random_x = random_x - 1
+                    revisar = revision(matriz, random_x, random_y)
                     if random_x != 0 and revisar <= 2:
                         matriz[random_x][random_y] = ' '
                     else:
-                        random_x = random_x+1
+                        random_x = random_x + 1
 
                 elif movimiento == 3:
-                    random_x = random_x+1
-                    revisar = revision(matriz,random_x,random_y)
-                    if random_x != x-1 and revisar <= 2:
-                        matriz[random_x][random_y]=' '
+                    random_x = random_x + 1
+                    revisar = revision(matriz, random_x, random_y)
+                    if random_x != x - 1 and revisar <= 2:
+                        matriz[random_x][random_y] = ' '
                     else:
-                        random_x = random_x-1
+                        random_x = random_x - 1
 
                 elif movimiento == 4:
-                    random_y = random_y-1
-                    revisar = revision(matriz,random_x,random_y)
+                    random_y = random_y - 1
+                    revisar = revision(matriz, random_x, random_y)
                     if random_y != 0 and revisar <= 2:
                         matriz[random_x][random_y] = ' '
 
                     else:
-                        random_y = random_y+1
+                        random_y = random_y + 1
                 if comodin_1 == random_x and comodin_2 == random_y:
-                    pausa = pausa-1
-            detenerse = detenerse-1
-            
-            
-#eliminacion de estructuras, las cuales forman diagonales que bloquean caminos
-def rellenar(matriz, k ,l):
-    
-    for i in range(1,x-1):
-        for j in range(2,y-7):
-            w = random.randint(0,2)
+                    pausa = pausa - 1
+            detenerse = detenerse - 1
+
+
+# eliminacion de estructuras, las cuales forman diagonales que bloquean caminos
+def rellenar(matriz, k, l):
+
+    for i in range(1, x - 1):
+        for j in range(2, y - 7):
+            w = random.randint(0, 2)
             if matriz[i][j] == ' ':
-                if matriz[i+1][j-1] == ' ':
-                    if matriz[i][j-1] == BLOQUE:
-                        if matriz[i+1][j] == BLOQUE:
+                if matriz[i + 1][j - 1] == ' ':
+                    if matriz[i][j - 1] == BLOQUE:
+                        if matriz[i + 1][j] == BLOQUE:
                             if w == 0:
-                                matriz[i+1][j] = ' '
+                                matriz[i + 1][j] = ' '
                             elif w == 1:
-                                matriz[i][j-1] = ' '
-            elif matriz[i][j-1] == ' ':
-                if matriz[i+1][j] == ' ':
+                                matriz[i][j - 1] = ' '
+            elif matriz[i][j - 1] == ' ':
+                if matriz[i + 1][j] == ' ':
                     if matriz[i][j] == BLOQUE:
-                        if matriz[i+1][j-1] == BLOQUE:
+                        if matriz[i + 1][j - 1] == BLOQUE:
                             if w == 0:
                                 matriz[i][j] = ' '
                             elif w == 1:
-                                matriz[i+1][j-1] = ' '
-    rellenar_2(matriz, k ,l)
-    
-    
-#eliminacion de estructuras, las cuales forman 3 cuadrados negro verticales/horizontales
-#y bloquean caminos hacia la victoria    
-def rellenar_2(matriz, k ,l):
-    for i in range(1,x-1):
-        for j in range(2,y-2):
+                                matriz[i + 1][j - 1] = ' '
+    rellenar_2(matriz, k, l)
+
+
+# eliminacion de estructuras, las cuales forman 3 cuadrados negro
+# verticales/horizontales y bloquean caminos hacia la victoria
+def rellenar_2(matriz, k, l):
+    for i in range(1, x - 1):
+        for j in range(2, y - 2):
             if matriz[i][j] == BLOQUE:
-                if matriz[i+1][j] == BLOQUE:
-                    if matriz[i-1][j] == BLOQUE:
-                        if matriz[i-1][j-1] == ' ':
-                            if matriz[i][j-1] == ' ':
-                                if matriz[i+1][j-1] == ' ':
-                                    if matriz[i-1][j+1] == ' ':
-                                        if matriz[i][j+1] == ' ':
-                                            if matriz[i+1][j+1] == ' ':
+                if matriz[i + 1][j] == BLOQUE:
+                    if matriz[i - 1][j] == BLOQUE:
+                        if matriz[i - 1][j - 1] == ' ':
+                            if matriz[i][j - 1] == ' ':
+                                if matriz[i + 1][j - 1] == ' ':
+                                    if matriz[i - 1][j + 1] == ' ':
+                                        if matriz[i][j + 1] == ' ':
+                                            if matriz[i + 1][j + 1] == ' ':
                                                 matriz[i][j] = ' '
 
-    for i in range(1,x-1):
-        for j in range(2,y-2):
+    for i in range(1, x - 1):
+        for j in range(2, y - 2):
             if matriz[i][j] == BLOQUE:
-                if matriz[i][j-1] == BLOQUE:
-                    if matriz[i][j+1] == BLOQUE:
-                        if matriz[i-1][j-1] == ' ':
-                            if matriz[i-1][j] == ' ':
-                                if matriz[i-1][j+1] == ' ':
-                                    if matriz[i+1][j-1] == ' ':
-                                        if matriz[i+1][j] == ' ':
-                                            if matriz[i+1][j+1] == ' ':
+                if matriz[i][j - 1] == BLOQUE:
+                    if matriz[i][j + 1] == BLOQUE:
+                        if matriz[i - 1][j - 1] == ' ':
+                            if matriz[i - 1][j] == ' ':
+                                if matriz[i - 1][j + 1] == ' ':
+                                    if matriz[i + 1][j - 1] == ' ':
+                                        if matriz[i + 1][j] == ' ':
+                                            if matriz[i + 1][j + 1] == ' ':
                                                 matriz[i][j] = ' '
 
-    for i in range(-1,2):
-        for w in range(1,4):
-            matriz[k+i][w] = ' '
-        for i in range(1,8):
-            matriz[l][y-i] = ' '
+    for i in range(-1, 2):
+        for w in range(1, 4):
+            matriz[k + i][w] = ' '
+        for i in range(1, 8):
+            matriz[l][y - i] = ' '
 
-    for i in range(0,y-1):
+    for i in range(0, y - 1):
         matriz[0][i] = BLOQUE
-    for i in range(0,y-1):
-        matriz[x-1][i] = BLOQUE
+    for i in range(0, y - 1):
+        matriz[x - 1][i] = BLOQUE
 
 
-#Imprimir una matriz sin movimientos
+# Imprimir una matriz sin movimientos
 def imprimir(matriz):
-
-    for i in range (0,x):
-        for k in range(0,y):
-            print(matriz[i][k],end="")
+    for i in range (0, x):
+        for k in range(0, y):
+            print(matriz[i][k], end="")
         print()
-        
-#Imprimir caminos largo/corto
+
+
+# Imprimir caminos largo/corto
 def imprimircaminos(matriz, coordenadas, k, b):
-
-    for i in range (len(coordenadas)):
-        if(i == 0 or i %2 == 0):
+    for i in range(len(coordenadas)):
+        if i == 0 or i % 2 == 0:
             fila = coordenadas[i]
-            columna = coordenadas[i+1]
-            if(fila == k and columna == b):
-                indice_eliminar= i+1
+            columna = coordenadas[i + 1]
+            if fila == k and columna == b:
+                indice_eliminar= i + 1
 
-    for v in range (0, indice_eliminar+1):
-        j=0
+    for v in range(0, indice_eliminar + 1):
+        j = 0
         coordenadas.pop(j)
 
-    for i in range (len(coordenadas)):
-        if(i == 0 or i %2 == 0):
+    for i in range(len(coordenadas)):
+        if i == 0 or i % 2 == 0:
             fila = coordenadas[i]
-            columna = coordenadas[i+1]
+            columna = coordenadas[i + 1]
             matriz[fila][columna] = 'X'
 
-    for i in range (0,x):
-        for j in range(0,y):
-            print(matriz[i][j],end="")
+    for i in range(0, x):
+        for j in range(0, y):
+            print(matriz[i][j], end="")
         print()
-        
-        
+
+
 # Imprime solo un camino con forma de circulo en el mapa.
 def imprimir_circulo(matriz, t, primeraX, segundaY, indice):
 
-    with open('ensenanza.json',"r") as file:
+    with open('ensenanza.json', "r") as file:
             data2 = json.load(file)
 
-    coordenadas = data2['laberinto'+str(indice)][t]['ensenanza'+str(t)]
+    coordenadas = data2['laberinto' + str(indice)][t]['ensenanza' + str(t)]
 
-    for i in range(primeraX, segundaY+1):
-
-        if(i == 0 or i %2 == 0):
+    for i in range(primeraX, segundaY + 1):
+        if i == 0 or i % 2 == 0:
             fila = coordenadas[i]
-            columna = coordenadas[i+1]
-            matriz[fila][columna]= 'X'
+            columna = coordenadas[i + 1]
+            matriz[fila][columna] = 'X'
 
     imprimir(matriz)
 
 
-#Luego de hacer un movimiento el espacio de atras se vuelve en blanco
+# Luego de hacer un movimiento el espacio de atras se vuelve en blanco
 def movimiento(matriz, k, b, mov):
-
     matriz[k][b] = 'X'
 
-    if(mov=='A'):
-        matriz[k][b+1]= ' '
-    elif(mov == 'S'):
-        matriz[k-1][b] = ' '
-    elif(mov == 'D'):
-        matriz[k][b-1] = ' '
-    elif(mov == 'W'):
-        matriz[k+1][b] = ' '
-        
-        
-#Limpia la matriz, de manera que no existan movimientos
-def limpiarmatriz(matriz,k ,b):
+    if mov == 'A':
+        matriz[k][b + 1]= ' '
+    elif mov == 'S':
+        matriz[k - 1][b] = ' '
+    elif mov == 'D':
+        matriz[k][b - 1] = ' '
+    elif mov == 'W':
+        matriz[k + 1][b] = ' '
 
-    for i in range (0,x):
-        for j in range(0,y):
-            if(matriz[i][j] == 'X'):
+
+# Limpia la matriz, de manera que no existan movimientos
+def limpiarmatriz(matriz, k,b):
+
+    for i in range(0, x):
+        for j in range(0, y):
+            if matriz[i][j] == 'X':
                 matriz[i][j] = ' '
+
     matriz[k][b] = 'X'
 
-#Busca camino más largo y corto
+
+# Busca camino más largo y corto
 def revision_camino(indice, buscar_camino, k, b):
 
     coordenadas = 0
