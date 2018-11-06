@@ -339,7 +339,7 @@ def rellenar_2(matriz, k, l):
 
 # Imprimir una matriz sin movimientos
 def imprimir(matriz):
-    for i in range (0, x):
+    for i in range(0, x):
         for k in range(0, y):
             print(matriz[i][k], end="")
         print()
@@ -352,7 +352,7 @@ def imprimircaminos(matriz, coordenadas, k, b):
             fila = coordenadas[i]
             columna = coordenadas[i + 1]
             if fila == k and columna == b:
-                indice_eliminar= i + 1
+                indice_eliminar = i + 1
 
     for v in range(0, indice_eliminar + 1):
         j = 0
@@ -392,7 +392,7 @@ def movimiento(matriz, k, b, mov):
     matriz[k][b] = 'X'
 
     if mov == 'A':
-        matriz[k][b + 1]= ' '
+        matriz[k][b + 1] = ' '
     elif mov == 'S':
         matriz[k - 1][b] = ' '
     elif mov == 'D':
@@ -402,8 +402,7 @@ def movimiento(matriz, k, b, mov):
 
 
 # Limpia la matriz, de manera que no existan movimientos
-def limpiarmatriz(matriz, k,b):
-
+def limpiarmatriz(matriz, k, b):
     for i in range(0, x):
         for j in range(0, y):
             if matriz[i][j] == 'X':
@@ -419,198 +418,195 @@ def revision_camino(indice, buscar_camino, k, b):
     retornar = 0
     contador = 0
 
-    with open('ensenanza.json',"r") as file:
+    with open('ensenanza.json', "r") as file:
         data2 = json.load(file)
 
     aux1 = 1000
     aux2 = 0
 
-    for t in range(len(data2['laberinto'+str(indice)])):
-        coordenadas = data2['laberinto'+str(indice)][t]['ensenanza'+str(t)]
-        for i in range (len(coordenadas)):
-                if(i == 0 or i %2 == 0):
+    for t in range(len(data2['laberinto' + str(indice)])):
+        coordenadas = data2['laberinto' + str(indice)][t]['ensenanza' + str(t)]
+        for i in range(len(coordenadas)):
+                if i == 0 or i % 2 == 0:
                     fila = coordenadas[i]
-                    columna = coordenadas[i+1]
-                    #revisar si la coordenada actual se encuentra en la ensenanza
-                    if(fila == k and columna == b):
-                        if(buscar_camino == 'corto'):
-                            if(aux1 > len(data2['laberinto'+str(indice)][t]['ensenanza'+str(t)])):
-                                aux1 = len(data2['laberinto'+str(indice)][t]['ensenanza'+str(t)])
+                    columna = coordenadas[i + 1]
+                    # revisar si la coordenada actual se encuentra en la ensenanza
+                    if fila == k and columna == b:
+                        if buscar_camino == 'corto':
+                            if aux1 > len(data2['laberinto' + str(indice)][t]['ensenanza' + str(t)]):
+                                aux1 = len(data2['laberinto' + str(indice)][t]['ensenanza' + str(t)])
                                 retornar = t
-                        elif(buscar_camino == 'largo'):
-                            if(aux2 < len(data2['laberinto'+str(indice)][t]['ensenanza'+str(t)])):
-                                aux2 = len(data2['laberinto'+str(indice)][t]['ensenanza'+str(t)])
+                        elif buscar_camino == 'largo':
+                            if aux2 < len(data2['laberinto' + str(indice)][t]['ensenanza' + str(t)]):
+                                aux2 = len(data2['laberinto' + str(indice)][t]['ensenanza' + str(t)])
                                 retornar = t
                         contador = 1
-    if(contador == 0):
+
+    if contador == 0:
         print('no existe aprendizaje')
         retornar = 'False'
 
     return retornar
 
-def buscarcirculo(matriz, k, b, indice):
 
+def buscarcirculo(matriz, k, b, indice):
     aux = 'False'
 
-    with open('ensenanza.json',"r") as file:
+    with open('ensenanza.json', "r") as file:
                 data2 = json.load(file)
 
-
-    for t in range(len(data2['laberinto'+str(indice)])):
-        coordenadas = data2['laberinto'+str(indice)][t]['ensenanza'+str(t)]
-        for i in range (len(coordenadas)):
-                if(i == 0 or i %2 == 0):
+    for t in range(len(data2['laberinto' + str(indice)])):
+        coordenadas = data2['laberinto' + str(indice)][t]['ensenanza' + str(t)]
+        for i in range(len(coordenadas)):
+                if i == 0 or i % 2 == 0:
                     fila = coordenadas[i]
-                    columna = coordenadas[i+1]
+                    columna = coordenadas[i + 1]
                     if(fila == k and columna == b):
                         primeraX = i
-                        primeraY = i+1
-                        for j in range (primeraY+1, len(coordenadas)):
-                            if(j == 0 or j %2 == 0):
+                        primeraY = i + 1
+                        for j in range(primeraY + 1, len(coordenadas)):
+                            if j == 0 or j % 2 == 0:
                                 fila = coordenadas[j]
-                                columna = coordenadas[j+1]
-                                if(fila == k and columna == b):
+                                columna = coordenadas[j + 1]
+                                if fila == k and columna == b:
                                     segundaX = j
-                                    segundaY = j+1
-                                    if(segundaX - primeraX >= 16 and segundaY - primeraY >= 16):
+                                    segundaY = j + 1
+                                    if segundaX - primeraX >= 16 and segundaY - primeraY >= 16:
                                         imprimir_circulo(matriz, t, primeraX, segundaY, indice)
                                         aux = 'True'
-    if (aux == 'False'):
+
+    if aux == 'False':
         print("En esta cordenada no existe camino en circulo, o no hay aprendizaje")
+
 
 def menu(matriz, matriz2, k, b, indice):
     opc = 0
     salir = 0
     coordenadas = 0
 
-    while(salir != 1):
-        print("\033[4;35;47m"+"----------- MENÚ ----------- "+"\033[0;m")
-        print("\033[4;35;47m"+"1.- INDICAR CAMINO MÁS CORTO "+"\033[0;m")
-        print("\033[4;35;47m"+"2.- INDICAR CAMINO MÁS LARGO"+"\033[0;m")
-        print("\033[4;35;47m"+"3.- ¿DE DONDE VENGO?"+"\033[0;m")
-        print("\033[4;35;47m"+"4.- BUSCAR UN CAMINO QUE SEA CIRCULO"+"\033[0;m")
-        print("\033[4;35;47m"+"5.- SEGUIR JUGAN2 "+"\033[0;m")
-        print("\033[4;35;47m"+"---------------------------- "+"\033[0;m")
+    while salir != 1:
+        print("\033[4;35;47m----------- MENÚ ----------- \033[0;m")
+        print("\033[4;35;47m1.- INDICAR CAMINO MÁS CORTO \033[0;m")
+        print("\033[4;35;47m2.- INDICAR CAMINO MÁS LARGO \033[0;m")
+        print("\033[4;35;47m3.- ¿DE DONDE VENGO? \033[0;m")
+        print("\033[4;35;47m4.- BUSCAR UN CAMINO QUE SEA CIRCULO \033[0;m")
+        print("\033[4;35;47m5.- SEGUIR JUGAN2 \033[0;m")
+        print("\033[4;35;47m---------------------------- \033[0;m")
         opc = input()
 
-        if(opc == '1'):
+        if opc == '1':
             buscar_camino = 'corto'
             ensenanza = revision_camino(indice, buscar_camino, k, b)
-            if (ensenanza == 'False'):
+            if ensenanza == 'False':
                 break
 
-            with open('ensenanza.json',"r") as file:
+            with open('ensenanza.json', "r") as file:
                 data2 = json.load(file)
-            #Ensenanza más corta
-            coordenadas = data2['laberinto'+str(indice)][ensenanza]['ensenanza'+str(ensenanza)]
+            # Ensenanza más corta
+            coordenadas = data2['laberinto' + str(indice)][ensenanza]['ensenanza' + str(ensenanza)]
             imprimircaminos(matriz, coordenadas, k, b)
             limpiarmatriz(matriz, k, b)
 
-        elif(opc == '2'):
+        elif opc == '2':
             buscar_camino = 'largo'
             ensenanza = revision_camino(indice, buscar_camino, k, b)
 
-            if (ensenanza == 'False'):
+            if ensenanza == 'False':
                 break
 
-            with open('ensenanza.json',"r") as file:
+            with open('ensenanza.json', "r") as file:
                 data2 = json.load(file)
 
-            #Ensenanza más larga
-            coordenadas = data2['laberinto'+str(indice)][ensenanza]['ensenanza'+str(ensenanza)]
+            # Ensenanza más larga
+            coordenadas = data2['laberinto' + str(indice)][ensenanza]['ensenanza' + str(ensenanza)]
             imprimircaminos(matriz, coordenadas, k, b)
             limpiarmatriz(matriz, k, b)
 
-        elif(opc == '3'):
+        elif opc == '3':
             imprimir(matriz2)
 
-        elif(opc == '4'):
-
+        elif opc == '4':
             buscarcirculo(matriz, k, b, indice)
             limpiarmatriz(matriz, k, b)
 
-
-        elif(opc == '5'):
+        elif opc == '5':
             limpiarmatriz(matriz, k, b)
             salir = 1
 
 
-
 def start(matriz, k, l, inicio, indice, coordenadas, data2):
-
     matriz[inicio][0] = 'X'
-    matriz[l][y-2] = ' '
-    matriz[l][y-1] = ' '
+    matriz[l][y - 2] = ' '
+    matriz[l][y - 1] = ' '
 
     salir = 0
     mov = 0
     b = 0
     matriz2 = copy.deepcopy(matriz)
 
-    while(salir != 1):
-
+    while salir != 1:
         imprimir(matriz)
 
         print("INGRESE MOVIMIENTO (R PARA EL MENU):  ")
         mov = input()
 
-        if(mov == 'A'):
-            if(matriz[k][0] == 'X'):
+        if mov == 'A':
+            if matriz[k][0] == 'X':
                 print("MOVIMIENTO IMPOSIBLE")
 
-            elif(matriz[k][0] != 'X'):
+            elif matriz[k][0] != 'X':
                 b = b - 1
-                if(matriz[k][b] == BLOQUE):
+                if matriz[k][b] == BLOQUE:
                     b = b + 1
                     print("CHOCASTE CON MURALLA")
 
-                elif(matriz[k][b] == ' '):
+                elif matriz[k][b] == ' ':
                     coordenadas.append(k)
                     coordenadas.append(b)
                     movimiento(matriz, k, b, mov)
                     matriz2[k][b] = 'X'
 
-        elif(mov == 'S'):
+        elif mov == 'S':
             k = k + 1
 
-            if(matriz[k][b] == BLOQUE):
+            if matriz[k][b] == BLOQUE:
                 k = k - 1
                 print("CHOCASTE CON MURALLA")
 
-            elif(matriz[k][b] == ' '):
+            elif matriz[k][b] == ' ':
                 coordenadas.append(k)
                 coordenadas.append(b)
                 movimiento(matriz, k, b, mov)
                 matriz2[k][b] = 'X'
 
-        elif(mov == 'D'):
+        elif mov == 'D':
             b = b + 1
-            if(matriz[k][b] == BLOQUE):
+            if matriz[k][b] == BLOQUE:
                 b = b - 1
                 print("CHOCASTE CON MURALLA")
 
-            elif(matriz[k][b] == ' '):
+            elif matriz[k][b] == ' ':
                 coordenadas.append(k)
                 coordenadas.append(b)
                 movimiento(matriz, k, b, mov)
                 matriz2[k][b] = 'X'
 
-        elif(mov == 'W'):
+        elif mov == 'W':
             k = k - 1
 
-            if(matriz[k][b] == BLOQUE):
+            if matriz[k][b] == BLOQUE:
                 k = k + 1
                 print("CHOCASTE CON MURALLA")
 
-            elif(matriz[k][b] == ' '):
+            elif matriz[k][b] == ' ':
                 coordenadas.append(k)
                 coordenadas.append(b)
                 movimiento(matriz, k, b, mov)
                 matriz2[k][b] = 'X'
 
-        elif(mov == 'R'):
+        elif mov == 'R':
             try:
-                with open('ensenanza.json',"r") as file:
+                with open('ensenanza.json', "r") as file:
                     data2 = json.load(file)
                 try:
                     menu(matriz, matriz2, k, b, indice)
@@ -618,34 +614,32 @@ def start(matriz, k, l, inicio, indice, coordenadas, data2):
                 except KeyError:
                     print("No existe todavia aprendizaje, enseñe al menos 1 camino")
 
-            #La primera vez que se inicie el juego no existira archivo json
+            # La primera vez que se inicie el juego no existira archivo json
             except IOError:
                 print("No existe todavia aprendizaje")
 
-        elif(mov != 'A' or mov != 'D' or mov != 'S' or mov != 'W' or mov != 'R'):
+        elif mov != 'A' or mov != 'D' or mov != 'S' or mov != 'W' or mov != 'R':
             print("SOLO INGRESAR LETRA A,S,W,D y R EN MAYÚS ")
 
-        #Coordenadas de salida
-        if(matriz[l][y-1] == 'X'):
+        # Coordenadas de salida
+        if matriz[l][y - 1] == 'X':
             salir = 1
             imprimir(matriz)
 
-    salir=0
-    while(salir != 1):
-        print("\033[4;35;47m"+"!!!! HAS LOGRADO ENCONTRAR LA SALIDA!!!!!! "+"\033[0;m")
-        print("\033[4;35;47m"+"----------- MENÚ ----------- "+"\033[0;m")
-        print("\033[4;35;47m"+"1.- REINICIAR JUEGO (NUEVO MAPA): "+"\033[0;m")
-        print("\033[4;35;47m"+"2.- REINICIAR JUEGO (MISMO MAPA): "+"\033[0;m")
-        print("\033[4;35;47m"+"3.- MOSTRAR MOVIMIENTOS: "+"\033[0;m")
-        print("\033[4;35;47m"+"4.- SALIR: "+"\033[0;m")
-        print("\033[4;35;47m"+"---------------------------- "+"\033[0;m")
+    salir = 0
+    while salir != 1:
+        print("\033[4;35;47m!!!! HAS LOGRADO ENCONTRAR LA SALIDA!!!!!! \033[0;m")
+        print("\033[4;35;47m----------- MENÚ ----------- \033[0;m")
+        print("\033[4;35;47m1.- REINICIAR JUEGO (NUEVO MAPA): \033[0;m")
+        print("\033[4;35;47m2.- REINICIAR JUEGO (MISMO MAPA): \033[0;m")
+        print("\033[4;35;47m3.- MOSTRAR MOVIMIENTOS: \033[0;m")
+        print("\033[4;35;47m4.- SALIR: \033[0;m")
+        print("\033[4;35;47m---------------------------- \033[0;m")
         opc = input()
 
-
-        if(opc == '1'):
-
+        if opc == '1':
             try:
-                with open('ensenanza.json',"r") as file:
+                with open('ensenanza.json', "r") as file:
                     data2 = json.load(file)
                 subir_coordenadas(data2, coordenadas, indice)
                 creacionmatriz(data1, data2)
@@ -653,61 +647,63 @@ def start(matriz, k, l, inicio, indice, coordenadas, data2):
             except IOError:
                 subir_coordenadas(data2, coordenadas, indice)
                 creacionmatriz(data1, data2)
-        elif(opc == '2'):
 
+        elif opc == '2':
             try:
-                with open('ensenanza.json',"r") as file:
+                with open('ensenanza.json', "r") as file:
                     data2 = json.load(file)
 
                 subir_coordenadas(data2, coordenadas, indice)
                 del coordenadas[:]
                 k = inicio
-                start(matriz, k, l, inicio, indice , coordenadas, data2)
+                start(matriz, k, l, inicio, indice, coordenadas, data2)
 
             except IOError:
                 subir_coordenadas(data2, coordenadas, indice)
                 del coordenadas[:]
                 k = inicio
-                start(matriz, k, l, inicio, indice , coordenadas, data2)
+                start(matriz, k, l, inicio, indice, coordenadas, data2)
 
-        elif(opc == '3'):
-            for i in range (0,x):
-                for j in range(0,y):
-                    if(matriz2[i][j] == 'X'):
-                        print("\033[4;35;47m"+matriz2[i][j],end = "" +"\033[0;m")
+        elif opc == '3':
+            for i in range(0, x):
+                for j in range(0, y):
+                    if matriz2[i][j] == 'X':
+                        print("\033[4;35;47m" + matriz2[i][j], end="\033[0;m")
                     elif(matriz2[i][j] != 'X'):
-                        print(matriz2[i][j],end = "")
+                        print(matriz2[i][j], end="")
+
                 print()
 
-        elif(opc == '4'):
+        elif opc == '4':
             subir_coordenadas(data2, coordenadas, indice)
             salir = 1
-        elif(opc != '1' or opc != '2' or opc != '3' or opc !='4'):
-            print("\033[4;35;47m"+"ERROR: NUMERO INCORRECTO"+"\033[0;m")
+        elif opc != '1' or opc != '2' or opc != '3' or opc != '4':
+            print("\033[4;35;47mERROR: NUMERO INCORRECTO\033[0;m")
+
 
 def armazon(matriz, data1, data2):
-    print("\033[4;35;47m"+"--------------------------------------------- "+"\033[0;m")
-    print("\033[4;35;47m"+"--------------------------------------------- "+"\033[0;m")
-    print("\033[4;35;47m"+"-------------BIENVENIDO LABERINTO------------ "+"\033[0;m")
-    print("\033[4;35;47m"+"--------------------------------------------- "+"\033[0;m")
-    print("\033[4;35;47m"+"--------------------------------------------- "+"\033[0;m")
+    print("\033[4;35;47m--------------------------------------------- \033[0;m")
+    print("\033[4;35;47m--------------------------------------------- \033[0;m")
+    print("\033[4;35;47m-------------BIENVENIDO LABERINTO------------ \033[0;m")
+    print("\033[4;35;47m--------------------------------------------- \033[0;m")
+    print("\033[4;35;47m--------------------------------------------- \033[0;m")
 
-    #Fijas la entrada y salida del laberinto
-    k = random.randint(1,x-2)
-    l = random.randint(1,x-2)
+    # Fijas la entrada y salida del laberinto
+    k = random.randint(1, x - 2)
+    l = random.randint(1, x - 2)
     inicio = k
 
     coordenadas = []
 
-    for i in range(3,8):
-        matriz[l][y-i] = ' '
-    #COLUMNA INVISIBLE
-    for i in range(0,x):
-        matriz[i][y-1] = ' '
+    for i in range(3, 8):
+        matriz[l][y - i] = ' '
+    # COLUMNA INVISIBLE
+    for i in range(0, x):
+        matriz[i][y - 1] = ' '
 
     laberinto(matriz, k)
     laberinto_parte_2(matriz, l)
-    rellenar(matriz, k ,l)
+    rellenar(matriz, k, l)
     indice = revision_matriz_repetida(data1, matriz)
     start(matriz, k, l, inicio, indice, coordenadas, data2)
 
@@ -719,6 +715,7 @@ def creacionmatriz(data1, data2):
 
     armazon(matriz, data1, data2)
 
+
 data1 = []
 data2 = {}
 
@@ -726,4 +723,3 @@ data1 = cargar_json_matriz()
 data2 = cargar_json_ensenanza()
 
 creacionmatriz(data1, data2)
-
