@@ -211,7 +211,7 @@ class VentanaVerTodo():
         cell = Gtk.CellRendererText()
         
         
-        title = ("Nombre", "Apellido", "Rut", "Nacionalidad", "Sentencia", "Celda", "Estado", "Descripcion")
+        title = ("Nombre", "Apellido", "Rut", "Nacionalidad", "Celda", "Sentencia", "Estado", "Descripcion")
         
         for i in range(len(title)):
             col = Gtk.TreeViewColumn(title[i], cell, text=i)
@@ -262,7 +262,7 @@ class VentanaBuscar():
         self.e_descripcion.connect("clicked", self.editar_descripcion)
         
         
-        title = ("Nombre", "Apellido", "Rut", "Nacionalidad", "Sentencia", "Celda", "Estado", "Descripcion")
+        title = ("Nombre", "Apellido", "Rut", "Nacionalidad", "Celda", "Sentencia", "Estado", "Descripcion")
         
         for i in range(len(title)):
             col = Gtk.TreeViewColumn(title[i], cell, text=i)
