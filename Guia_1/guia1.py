@@ -62,7 +62,7 @@ class ventana_emergente():
         self.aceptar2 = self.builder.get_object("aceptar2")
         self.cancelar = self.builder.get_object("cancelar")
 
-        textoFinal = self.texto1 + " " + self.texto2
+        textoFinal = textoFinal = self.texto1.get_text() + " " + self.texto2.get_text()
         largoFinal = len(textoFinal)
 
         self.txtFinal.set_value(textoFinal)
