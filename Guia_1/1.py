@@ -38,10 +38,9 @@ class principal():
         a = ventana_emergente(self.txt1, self.txt2, self.largo)
 
     def boton_reset(self, xd):
-        self.txt1.set_text("")
-        self.txt2.set_text("")
-        self.refrescar(xd)
+        a = mensaje_reset(self.txt1, self.txt2, self.largo)
 
+        refrescar(xd)
 
 
 class ventana_emergente():
@@ -80,6 +79,36 @@ class ventana_emergente():
 
     def boton_cancelar(self, xd):
         self.ventana2.destroy()
+
+
+class mensaje_reset():
+    def __init__(self, txt1, txt2, largo):
+        self.txt1 = txt1
+        self.txt2 = txt2
+        self.largo = largo
+
+        self.builder = Gtk.Builder()
+        self.builder.add_from_file("1.glade")
+
+        self.ventana3 = self.builder.get_object("ventana3")
+
+        self.aceptar3 = self.builder.get_object("aceptar3")
+        self.cancelar3 = self.builder.get_object("cancelar3")
+
+        self.aceptar3.connect("clicked", self.boton_aceptar3)
+        self.cancelar3.connect("clicked", self.boton_cancelar3)
+
+        self.ventana3.show_all()
+
+    def boton_aceptar3(self,xd):
+        self.txt1.set_text("")
+        self.txt2.set_text("")
+        self.largo.set_value(0)
+
+        self.ventana3.destroy()
+
+    def boton_cancelar3(self,xd):
+        self.ventana3.destroy()
 
 
 if __name__ == "__main__":
