@@ -54,7 +54,6 @@ class ventana_emergente():
         self.builder.add_from_file("guia1.glade")
 
         self.ventana2 = self.builder.get_object("ventana2")
-        self.ventana2.connect("destroy", Gtk.main_quit)
 
         self.txtFinal = self.builder.get_object("txtFinal")
         self.larg = self.builder.get_object("larg")
@@ -65,7 +64,7 @@ class ventana_emergente():
         largoFinal = len(textoFinal)
 
         self.txtFinal.set_text(textoFinal)
-        self.larg.set_text(largoFinal)
+        self.larg.set_value(largoFinal-1)
 
         self.aceptar2.connect("clicked", self.boton_aceptar2)
         self.cancelar.connect("clicked", self.boton_cancelar)
@@ -75,8 +74,7 @@ class ventana_emergente():
     def boton_aceptar2(self, xd):
         self.texto1.set_text("")
         self.texto2.set_text("")
-        self.lrgFinal.set_value(0)
-
+        self.lrg.set_value(0)
 
         self.ventana2.destroy()
 
