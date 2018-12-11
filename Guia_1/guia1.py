@@ -57,7 +57,7 @@ class ventana_emergente():
         self.ventana2.connect("destroy", Gtk.main_quit)
 
         self.txtFinal = self.builder.get_object("txtFinal")
-        self.largo = self.builder.get_object("largo")
+        self.larg = self.builder.get_object("larg")
         self.aceptar2 = self.builder.get_object("aceptar2")
         self.cancelar = self.builder.get_object("cancelar")
 
@@ -65,7 +65,7 @@ class ventana_emergente():
         largoFinal = len(textoFinal)
 
         self.txtFinal.set_text(textoFinal)
-        self.largo.set_text(largoFinal)
+        self.larg.set_text(largoFinal)
 
         self.aceptar2.connect("clicked", self.boton_aceptar2)
         self.cancelar.connect("clicked", self.boton_cancelar)
