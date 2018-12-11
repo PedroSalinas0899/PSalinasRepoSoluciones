@@ -65,7 +65,7 @@ class ventana_emergente():
         largoFinal = len(textoFinal)
 
         self.txtFinal.set_text(textoFinal)
-        self.largo.set_text(str(largoFinal))
+        self.largo.set_text(largoFinal)
 
         self.aceptar2.connect("clicked", self.boton_aceptar2)
         self.cancelar.connect("clicked", self.boton_cancelar)
