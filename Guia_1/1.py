@@ -6,7 +6,7 @@ from gi.repository import Gtk
 class principal():
     def __init__(self):
         self.builder = Gtk.Builder()
-        self.builder.add_from_file("guia1.glade")
+        self.builder.add_from_file("1.glade")
 
         self.ventana = self.builder.get_object("ventana")
         self.ventana.set_default_size(800, 600)
@@ -51,7 +51,7 @@ class ventana_emergente():
         self.lrg = large
 
         self.builder = Gtk.Builder()
-        self.builder.add_from_file("guia1.glade")
+        self.builder.add_from_file("1.glade")
 
         self.ventana2 = self.builder.get_object("ventana2")
 
