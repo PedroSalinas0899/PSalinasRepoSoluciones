@@ -56,6 +56,9 @@
               <object class="GtkSpinButton" id="largo">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="editable">False</property>
+                <property name="max_length">100</property>
+                <property name="max_width_chars">2</property>
               </object>
               <packing>
                 <property name="left_attach">2</property>
