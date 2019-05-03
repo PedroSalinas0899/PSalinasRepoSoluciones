@@ -8,14 +8,11 @@ col4[NR]
 col5[NR]
 }
 
-{
-for (i = 1;i <= NR; i++){
-	col3[NR] = $3
-	col4[NR] = $4
-	col5[NR] = $5
-	col6[NR] = $6
-}
-
+{	
+col3[NR] = $3
+col4[NR] = $4
+col5[NR] = $5
+col6[NR] = $6
 }
 
 END{
