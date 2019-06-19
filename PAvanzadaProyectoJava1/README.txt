@@ -9,7 +9,7 @@ Las naves tendrán la facultad de estropearse, lo cual esta asociado a la cantid
 
 Cada 2 segundos se imprimirá un tablero en pantalla el cual nos indicará velocidad, aceleración y distancia recorrida por cada nave. La carrera no termina hasta que el ultimo competidor llegue a la meta. Al finalizar la carrera se imprimirán las posiciones en las que quedo cada uno.
 
-Para la realización de este proyecto se usó el lenguaje de programación Java 11, donde el objetivo principal era hacer uso de clases y/o objetos con la finalidad de entender cómo trabajan y operan este tipo de herramientas, las cuales son el enfoque principal de lo que es la POO.
+Para la realización de este proyecto se usó el lenguaje de programación Java 11, donde el objetivo principal era hacer uso de clases y objetos con la finalidad de entender cómo trabajan y operan este tipo de herramientas, las cuales son el enfoque principal de lo que es la POO.
 
 La escritura de código estuvo limitada por conocimientos de la PEP-8 (la utilizada en Python, pero que sirve para darle más estilo al programa), donde podemos encontrar reglas como:
 
